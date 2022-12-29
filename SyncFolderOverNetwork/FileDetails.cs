@@ -25,7 +25,7 @@ namespace SyncFolderOverNetwork
                 var fi = new FileInfo(fileName);
                 return new FileDetails(fileName, fi.LastWriteTime, fi.Length);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Error for {0}", fileName);
                 throw;

@@ -18,6 +18,7 @@ namespace SyncFolderOverNetwork
 
         private void AddChildDirectories(string dir)
         {
+            if (DirectoryCheck.Ignore(dir)) return;
             foreach (var d in Directory.GetDirectories(dir))
             {
                 _names.Add(d);

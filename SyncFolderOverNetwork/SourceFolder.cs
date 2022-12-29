@@ -19,7 +19,7 @@ namespace SyncFolderOverNetwork
 
         public SourceFolder(string ipAddress)
         {
-            _ipAddress = ipAddress;
+            _ipAddress = ipAddress.Trim();
         }
 
         public void Start()
@@ -64,7 +64,7 @@ namespace SyncFolderOverNetwork
             Console.WriteLine("Waiting for fileName that has to be transferred.");
             while (true)
             {
-                var fileName = (string) Transfer.Receive(_stream);
+                var fileName = ConvertNames.Obj.ConvertRemoteToLocal((string)Transfer.Receive(_stream));
                 if (fileName == EndConnection) return;
                 new SendFile(fileName, _bw).Start();
             }
@@ -73,13 +73,13 @@ namespace SyncFolderOverNetwork
         private void SendFileNames()
         {
             Console.WriteLine("Sending List of all Files.");
-            SendObject(FileList.GetEntireDirectoryTreeFileNames());
+            SendObject(ConvertNames.Obj.ConvertLocalToRemote(FileList.GetEntireDirectoryTreeFileNames()));
         }
 
         private void SendFolderNames()
         {
             Console.WriteLine("Sending Folder List.");
-            SendObject(DirectoryList.GetEntireDirectoryTreeFolderNames());
+            SendObject(ConvertNames.Obj.ConvertLocalToRemote(DirectoryList.GetEntireDirectoryTreeFolderNames()));
         }
 
         private void SendObject(Object o)

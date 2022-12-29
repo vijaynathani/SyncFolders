@@ -4,6 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace SyncFolderOverNetwork
 {
+#pragma warning disable SYSLIB0011 // Type or member is obsolete
     internal class Transfer
     {
         public static void ReceiveFile(FileDetails f, Stream s, BinaryReader br)
@@ -38,4 +39,5 @@ namespace SyncFolderOverNetwork
             return new BinaryFormatter().Deserialize(s);
         }
     }
+#pragma warning restore SYSLIB0011 // Type or member is obsolete
 }
