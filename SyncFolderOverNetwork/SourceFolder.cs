@@ -73,13 +73,13 @@ namespace SyncFolderOverNetwork
         private void SendFileNames()
         {
             Console.WriteLine("Sending List of all Files.");
-            SendObject(ConvertNames.Obj.ConvertLocalToRemote(FileList.GetEntireDirectoryTreeFileNames()));
+            SendObject(FileList.GetEntireDirectoryTreeFileNames(true));
         }
 
         private void SendFolderNames()
         {
             Console.WriteLine("Sending Folder List.");
-            SendObject(ConvertNames.Obj.ConvertLocalToRemote(DirectoryList.GetEntireDirectoryTreeFolderNames()));
+            SendObject(DirectoryList.GetEntireDirectoryTreeFolderNames(true));
         }
 
         private void SendObject(Object o)

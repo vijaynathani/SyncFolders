@@ -32,6 +32,12 @@ namespace SyncFolderOverNetwork
             }
         }
 
+        public static FileDetails GetWithNameConvertedToRemote(string fileName)
+        {
+            var r = Get(fileName);
+            return new FileDetails(ConvertNames.Obj.ConvertLocalToRemote(r.NameOfFile), r.LastModified, r.Size);
+        }
+
         protected bool Equals(FileDetails other)
         {
             return string.Equals(NameOfFile, other.NameOfFile);

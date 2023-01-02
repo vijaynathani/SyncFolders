@@ -1,6 +1,6 @@
-*.exe
 *.user
 *.suo
 .vs/
-bin/
+Debug/
+Release/
 obj/

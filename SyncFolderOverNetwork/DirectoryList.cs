@@ -5,12 +5,15 @@ namespace SyncFolderOverNetwork
 {
     internal class DirectoryList
     {
-        private readonly HashSet<string> _names = new HashSet<string>();
+        private readonly HashSet<string> _names = new();
         private const string CurrentDir = ".";
+        private readonly bool convertPath;
 
-        public static ISet<string> GetEntireDirectoryTreeFolderNames()
+        private DirectoryList(bool convertPath) => this.convertPath = convertPath;
+
+        public static ISet<string> GetEntireDirectoryTreeFolderNames(bool convertPathNameToRemote = false)
         {
-            var fs = new DirectoryList();
+            var fs = new DirectoryList(convertPathNameToRemote);
             fs.AddChildDirectories(CurrentDir);
             fs._names.TrimExcess();
             return fs._names;
@@ -21,7 +24,7 @@ namespace SyncFolderOverNetwork
             if (DirectoryCheck.Ignore(dir)) return;
             foreach (var d in Directory.GetDirectories(dir))
             {
-                _names.Add(d);
+                _names.Add(convertPath?ConvertNames.Obj.ConvertLocalToRemote(d):d);
                 AddChildDirectories(d);
             }
         }
